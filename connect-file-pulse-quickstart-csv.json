@@ -1,7 +1,7 @@
 {
   "config": {
     "connector.class": "io.streamthoughts.kafka.connect.filepulse.source.FilePulseSourceConnector",
-    "filters": "ParseDelimitedRow, Drop, CreateUniqueId",
+    "filters": "ParseDelimitedRow, Drop",
     "filters.Drop.if": "{{ equals($value.artist, 'U2') }}",
     "filters.Drop.invert": "true",
     "filters.Drop.type": "io.streamthoughts.kafka.connect.filepulse.filter.DropFilter",
@@ -18,11 +18,7 @@
     "skip.headers": "1",
     "task.reader.class": "io.streamthoughts.kafka.connect.filepulse.reader.RowFileInputReader",
     "topic": "connect-file-pulse-quickstart-csv",
-    "tasks.max": 1,
-
-    "filters.CreateUniqueId.type": "io.streamthoughts.kafka.connect.filepulse.filter.AppendFilter",
-    "filters.CreateUniqueId.field": "$value.hash",
-    "filters.CreateUniqueId.value": "{{ md5(concat_ws('~', '', '', $value.business_unit_identifier, $value.reporting_month)) }}"
+    "tasks.max": 1
   },
   "name": "connect-file-pulse-quickstart-csv"
 }
